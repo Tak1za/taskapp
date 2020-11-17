@@ -1,0 +1,7 @@
+.categories {
+    height: 100vh;
+    border-right-style: solid;
+    border-right-color: #222;
+    width: 25%;
+    border-width: 2px;
+}

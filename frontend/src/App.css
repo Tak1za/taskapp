@@ -1,0 +1,17 @@
+.app {
+  /*text-align: center;*/
+  display: flex;
+  align-items: stretch;
+  background-color: #323232;
+}
+
+.app-navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  display: flex;
+  align-items: stretch;
+}

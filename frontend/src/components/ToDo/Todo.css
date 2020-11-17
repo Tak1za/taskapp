@@ -1,0 +1,31 @@
+.todo {
+    width: 100%;
+    height: calc(100vh - 50px);
+    border-right-style: solid;
+    border-right-color: #222;
+    padding: 10px;
+    border-width: 2px;
+    color: white;
+}
+
+.todo-heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-heading h3{
+    color: white;
+}
+
+.todo-heading i {
+    line-height: 2em;
+}
+
+.todo-heading i:hover {
+    color: grey;
+}
+
+.todo-list {
+    padding: 10px;
+    font-size: 1em;
+}

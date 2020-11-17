@@ -1,0 +1,14 @@
+.done {
+    height: calc(100vh - 50px);
+    width: 100%;
+    padding: 10px;
+}
+
+.done-heading {
+    color: greenyellow;
+}
+
+.done-list {
+    padding: 10px;
+    font-size: 1em;
+}

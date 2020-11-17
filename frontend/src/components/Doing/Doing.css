@@ -1,0 +1,17 @@
+.doing {
+    border-right-color: #222;
+    border-right-style: solid;
+    height: calc(100vh - 50px);
+    width: 100%;
+    padding: 10px;
+    border-width: 2px;
+}
+
+.doing-heading {
+    color: darkorange;
+}
+
+.doing-list {
+    padding: 10px;
+    font-size: 1em;
+}
