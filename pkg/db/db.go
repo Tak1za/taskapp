@@ -15,10 +15,10 @@ type Conn struct {
 }
 
 type AllResults struct {
-	Data []result `json:"data"`
+	Data []Result `json:"data"`
 }
 
-type result struct {
+type Result struct {
 	ID   string     `json:"id"`
 	Task string     `json:"task"`
 	Date *time.Time `json:"date"`
@@ -48,24 +48,6 @@ func (c *Conn) WailsInit(_ *wails.Runtime) error {
 		return err
 	}
 
-	task := "Fill timesheet"
-	uid, _ := uuid.NewV4()
-	addDataQuery := fmt.Sprintf(`INSERT into todo (id, task, time) VALUES ("%s", "%s", datetime('now'))`, uid.String(), task)
-	statement, _ = database.Prepare(addDataQuery)
-	if _, err = statement.Exec(); err != nil {
-		log.Printf("error inserting data to table: %s", err.Error())
-		return err
-	}
-
-	task = "Fill timesheet 2"
-	uid, _ = uuid.NewV4()
-	addDataQuery = fmt.Sprintf(`INSERT into todo (id, task, time) VALUES ("%s", "%s", datetime('now'))`, uid.String(), task)
-	statement, _ = database.Prepare(addDataQuery)
-	if _, err = statement.Exec(); err != nil {
-		log.Printf("error inserting data to table: %s", err.Error())
-		return err
-	}
-
 	c.DB = database
 	return nil
 }
@@ -78,7 +60,7 @@ func (c *Conn) GetAllResults(tableName string) (*AllResults, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	var results []result
+	var results []Result
 
 	for rows.Next() {
 		var (
@@ -86,7 +68,7 @@ func (c *Conn) GetAllResults(tableName string) (*AllResults, error) {
 			date *time.Time
 			id   string
 		)
-		var res result
+		var res Result
 		if err := rows.Scan(&id, &task, &date); err != nil {
 			log.Fatalln(err)
 		}
@@ -109,15 +91,20 @@ func (c *Conn) GetAllResults(tableName string) (*AllResults, error) {
 	}, nil
 }
 
-func (c *Conn) AddToDB(tableName string, task string) error {
+func (c *Conn) AddToDB(tableName string, task string) (*Result, error) {
 	uid, _ := uuid.NewV4()
-	addDataQuery := fmt.Sprintf(`INSERT into %s (id, task, time) VALUES ("%s", "%s", datetime('now'))`, tableName, uid.String(), task)
+	addTime := time.Now()
+	addDataQuery := fmt.Sprintf("INSERT into %s (id, task, time) VALUES (?, ?, ?)", tableName)
 	statement, _ := c.DB.Prepare(addDataQuery)
-	if _, err := statement.Exec(); err != nil {
+	if _, err := statement.Exec(uid.String(), task, addTime); err != nil {
 		log.Printf("error inserting data to table: %s", err.Error())
-		return err
+		return nil, err
 	}
-	return nil
+	return &Result{
+		ID: uid.String(),
+		Task: task,
+		Date: &addTime,
+	}, nil
 }
 
 func (c *Conn) MoveToDB(fromTable string, toTable string, taskId string) error {
@@ -140,7 +127,7 @@ func (c *Conn) MoveToDB(fromTable string, toTable string, taskId string) error {
 		return err
 	}
 
-	if err := c.AddToDBWithId(toTable, taskId, task); err != nil {
+	if _, err := c.AddToDBWithId(toTable, taskId, task); err != nil {
 		log.Printf("error adding data: %s, to table: %s. error: %s", task, toTable, err)
 		return err
 	}
@@ -148,14 +135,19 @@ func (c *Conn) MoveToDB(fromTable string, toTable string, taskId string) error {
 	return nil
 }
 
-func (c *Conn) AddToDBWithId(tableName string, taskId string, task string) error {
-	addDataQuery := fmt.Sprintf(`INSERT into %s (id, task, time) VALUES ("%s", "%s", datetime('now'))`, tableName, taskId, task)
+func (c *Conn) AddToDBWithId(tableName string, taskId string, task string) (*Result, error) {
+	addTime := time.Now()
+	addDataQuery := fmt.Sprintf(`INSERT into %s (id, task, time) VALUES (?, ?, ?)`, tableName)
 	statement, _ := c.DB.Prepare(addDataQuery)
-	if _, err := statement.Exec(); err != nil {
+	if _, err := statement.Exec(taskId, task, addTime); err != nil {
 		log.Printf("error inserting data to table: %s", err.Error())
-		return err
+		return nil, err
 	}
-	return nil
+	return &Result{
+		ID: taskId,
+		Task: task,
+		Date: &addTime,
+	}, nil
 }
 
 func (c *Conn) RemoveFromDB(tableName string, taskId string) error {

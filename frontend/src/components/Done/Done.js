@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Done.css';
 import {Form} from "react-bootstrap";
 
 const Done = (props) => {
+    const [doneList, setDoneList] = useState([]);
+    useEffect(() => {
+        window.backend.Conn.GetAllResults("done").then(res => {
+            setDoneList(res.data)
+        }).catch(e => console.error(e))
+    }, []);
+
     return (
         <div className="done">
             <div className="done-heading">
@@ -10,7 +17,7 @@ const Done = (props) => {
             </div>
             <div className="done-list">
                 <div className="done-list-content">
-                    {props.data ? props.data.map((d) => {
+                    {doneList ? doneList.map((d) => {
                         return (
                             <Form.Group key={d.id} controlId={`formIdCheckbox${d.id}`}>
                                 <Form.Check type="checkbox" label={d.task}/>
