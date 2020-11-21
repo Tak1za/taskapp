@@ -69,10 +69,9 @@
     align-self: center;
 }
 
-.todo-list-item-check:hover {
-    color: white;
-    vertical-align: middle;
-    cursor: pointer;
+.todo-list-item-move-doing {
+  color: darkorange;
+  align-self: center;
 }
 
 .todo-list-item-delete {

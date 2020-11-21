@@ -58,7 +58,7 @@ function App() {
             triggerUpdate={setUpdate}
           />
           <Doing list={doingList} setList={setDoingList} triggerUpdate={setUpdate} />
-          <Done list={doneList} setList={setDoneList} />
+          <Done list={doneList} setList={setDoneList} triggerUpdate={setUpdate} />
         </div>
       </div>
     </div>

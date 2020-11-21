@@ -2,6 +2,7 @@
   height: calc(100vh - 50px);
   width: 100%;
   padding: 10px;
+  color: white;
 }
 
 .done-heading {
@@ -10,5 +11,37 @@
 
 .done-list {
   padding: 10px;
+  height: calc(100vh - 100px);
   font-size: 1em;
+  overflow-y: auto;
 }
+
+.done-list-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.done-list-task-container {
+  display: inline-flex;
+}
+
+.done-list-item-check {
+  color: greenyellow;
+  align-self: center;
+}
+
+.done-list-item-delete {
+  color: grey;
+  align-self: center;
+}
+
+.done-list-item-delete:hover {
+  color: red;
+}
+
+.done-list-item-task {
+  padding: 8px;
+  text-align: left;
+  margin: 0 10px 0 10px;
+}
+

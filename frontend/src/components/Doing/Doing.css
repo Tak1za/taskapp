@@ -33,10 +33,15 @@
   align-self: center;
 }
 
-.doing-list-item-check:hover {
+/* .doing-list-item-check:hover {
   color: darkorange;
   vertical-align: middle;
   cursor: pointer;
+} */
+
+.doing-list-item-move-done {
+  color: greenyellow;
+  align-self: center;
 }
 
 .doing-list-item-delete {

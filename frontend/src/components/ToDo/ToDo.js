@@ -14,10 +14,22 @@ const ToDo = (props) => {
   };
 
   const handleStartTask = (taskId) => {
-      window.backend.Conn.MoveToDB("todo", "doing", taskId).catch(e => console.error(e));
+    window.backend.Conn.MoveToDB("todo", "doing", taskId).catch((e) =>
+      console.error(e)
+    );
 
-      props.triggerUpdate(true);
-  }
+    props.triggerUpdate(true);
+  };
+
+  const [hovering, setHovering] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovering(false);
+  };
 
   return (
     <div className="todo">
@@ -33,8 +45,14 @@ const ToDo = (props) => {
                   <div className="todo-list-content" key={d.id}>
                     <div className="todo-list-task-container">
                       <i
-                        className="fas fa-play todo-list-item-check"
+                        className={`${
+                          hovering
+                            ? "fas fa-hourglass-half todo-list-item-move-doing"
+                            : "fas fa-play todo-list-item-check"
+                        }`}
                         onClick={() => handleStartTask(d.id)}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                       />
                       <p className="todo-list-item-task">{d.task}</p>
                     </div>
