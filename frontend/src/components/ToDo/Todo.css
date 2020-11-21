@@ -1,67 +1,91 @@
 .todo {
-    width: 100%;
-    height: calc(100vh - 50px);
-    border-right-style: solid;
-    border-right-color: #222;
-    padding: 10px;
-    border-width: 2px;
-    color: white;
+  width: 100%;
+  height: calc(100vh - 50px);
+  border-right-style: solid;
+  border-right-color: #222;
+  padding: 10px;
+  border-width: 2px;
+  color: white;
 }
 
 .todo-heading {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.todo-heading h3{
-    color: white;
+.todo-heading h3 {
+  color: white;
 }
 
 .todo-heading i {
-    line-height: 2em;
+  line-height: 2em;
+  color: grey;
 }
 
 .todo-heading i:hover {
-    color: grey;
+  color: white;
 }
 
 .todo-list {
-    padding: 10px;
-    font-size: 1em;
+  padding: 10px;
+  font-size: 1em;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
 }
 
-.todo-modal {
-    z-index: 1;
-    opacity: 0.1;
-    position: absolute;
-    top: 150px;
-    left: 150px;
-    right: 150px;
-    bottom: 150px;
-    background-color: white;
-}
-
-.todo-overlay-modal {
-    z-index: 10000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: grey;
-}
-
-.todo-list-item-delete {
-    display: none;
-}
-
-.todo-list-item {
+.todo-list-content {
     display: flex;
     justify-content: space-between;
 }
 
-.todo-list-item:hover .todo-list-item-delete{
-    display: block;
-    color: grey;
-    line-height: 20px;
+.todo-modal {
+  z-index: 1;
+  opacity: 0.1;
+  position: absolute;
+  top: 150px;
+  left: 150px;
+  right: 150px;
+  bottom: 150px;
+  background-color: white;
+}
+
+.todo-overlay-modal {
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: grey;
+}
+
+
+.todo-list-task-container {
+    display: inline-flex;
+}
+
+.todo-list-item-check {
+    color: white;
+    align-self: center;
+}
+
+.todo-list-item-check:hover {
+    color: white;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.todo-list-item-delete {
+  color: grey;
+  align-self: center;
+}
+
+.todo-list-item-delete:hover {
+  color: red;
+}
+
+.todo-list-item-task {
+    padding: 8px;
+    text-align: left;
+    margin: 0 10px 0 10px;
 }

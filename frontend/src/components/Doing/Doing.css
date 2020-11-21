@@ -1,17 +1,55 @@
 .doing {
-    border-right-color: #222;
-    border-right-style: solid;
-    height: calc(100vh - 50px);
-    width: 100%;
-    padding: 10px;
-    border-width: 2px;
+  border-right-color: #222;
+  border-right-style: solid;
+  height: calc(100vh - 50px);
+  width: 100%;
+  padding: 10px;
+  border-width: 2px;
+  color: white;
 }
 
 .doing-heading {
-    color: darkorange;
+  color: darkorange;
 }
 
 .doing-list {
-    padding: 10px;
-    font-size: 1em;
+  padding: 10px;
+  height: calc(100vh - 100px);
+  font-size: 1em;
+  overflow-y: auto;
+}
+
+.doing-list-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.doing-list-task-container {
+  display: inline-flex;
+}
+
+.doing-list-item-check {
+  color: darkorange;
+  align-self: center;
+}
+
+.doing-list-item-check:hover {
+  color: darkorange;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.doing-list-item-delete {
+  color: grey;
+  align-self: center;
+}
+
+.doing-list-item-delete:hover {
+  color: red;
+}
+
+.doing-list-item-task {
+  padding: 8px;
+  text-align: left;
+  margin: 0 10px 0 10px;
 }
